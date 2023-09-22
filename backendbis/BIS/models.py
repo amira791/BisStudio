@@ -23,6 +23,8 @@ class Etudiant(models.Model):
    motdepasse = models.CharField(max_length=100)
    Filiere = models.CharField(max_length=100)
    Wilaya = models.CharField(max_length=100)
+   favoris = models.ManyToManyField('Cours', through='Favori', related_name='etudiants_favoris')
+   cours_completes = models.ManyToManyField('Cours', related_name='etudiants_completes', blank=True)
 
 
    def __str__(self) -> str:
@@ -68,7 +70,7 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"Payment for {self.cours} by {self.etudiant}"
-        
+
 class Commentaire(models.Model):
     cours = models.ForeignKey(Cours, on_delete=models.CASCADE, related_name='commentaires')
     etudiant = models.ForeignKey(Etudiant, on_delete=models.CASCADE)
@@ -77,3 +79,10 @@ class Commentaire(models.Model):
 
     def __str__(self):
         return f"Comment on {self.cours} by {self.etudiant}"
+
+class Favori(models.Model):
+    etudiant = models.ForeignKey(Etudiant, on_delete=models.CASCADE)
+    cours = models.ForeignKey(Cours, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.etudiant} favorited {self.cours}"
