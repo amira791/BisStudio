@@ -1,3 +1,6 @@
+
+
+# Create your models here.
 from django.db import models
 
 # Create your models here.
@@ -43,13 +46,15 @@ class Enseignant (models.Model):
 
 
 class Matiere(models.Model):
+    id = models.AutoField(primary_key=True)
     nom = models.CharField(max_length=100)
-    enseignant = models.ForeignKey(Enseignant, on_delete=models.CASCADE)
+    enseignant= models.ForeignKey(Enseignant, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nom
 
 class Cours(models.Model):
+    id = models.AutoField(primary_key=True)
     titre = models.CharField(max_length=200)
     description = models.TextField()
     matiere = models.ForeignKey(Matiere, on_delete=models.CASCADE)
@@ -57,13 +62,14 @@ class Cours(models.Model):
     nbheures = models.DecimalField(max_digits=10, decimal_places=2)
     nbvieux = models.DecimalField(max_digits=10, decimal_places=2)
     enseignant = models.OneToOneField(Enseignant, on_delete=models.CASCADE)
-
+  
     def __str__(self):
         return self.titre
 
 class Payment(models.Model):
-    etudiant = models.ForeignKey(Etudiant, on_delete=models.CASCADE)
-    cours = models.ForeignKey(Cours, on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True)
+    etudiant_id = models.ForeignKey(Etudiant, on_delete=models.CASCADE)
+    cours_id = models.ForeignKey(Cours, on_delete=models.CASCADE)
     montant = models.DecimalField(max_digits=10, decimal_places=2)
     date_paiement = models.DateTimeField(auto_now_add=True)
     
@@ -72,8 +78,9 @@ class Payment(models.Model):
         return f"Payment for {self.cours} by {self.etudiant}"
 
 class Commentaire(models.Model):
-    cours = models.ForeignKey(Cours, on_delete=models.CASCADE, related_name='commentaires')
-    etudiant = models.ForeignKey(Etudiant, on_delete=models.CASCADE)
+    idCom = models.AutoField(primary_key=True)
+    cours_id = models.ForeignKey(Cours, on_delete=models.CASCADE, related_name='commentaires')
+    etudiant_id = models.ForeignKey(Etudiant, on_delete=models.CASCADE)
     texte = models.TextField()
     date_commentaire = models.DateTimeField(auto_now_add=True)
 
@@ -81,8 +88,9 @@ class Commentaire(models.Model):
         return f"Comment on {self.cours} by {self.etudiant}"
 
 class Favori(models.Model):
-    etudiant = models.ForeignKey(Etudiant, on_delete=models.CASCADE)
-    cours = models.ForeignKey(Cours, on_delete=models.CASCADE)
+    idFav = models.AutoField(primary_key=True)
+    etudiant_id = models.ForeignKey(Etudiant, on_delete=models.CASCADE)
+    cours_id = models.ForeignKey(Cours, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.etudiant} favorited {self.cours}"

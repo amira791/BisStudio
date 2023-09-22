@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class BisConfig(AppConfig):
+class ApiConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'BIS'
+    name = 'api'
