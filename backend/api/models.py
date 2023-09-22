@@ -68,8 +68,8 @@ class Cours(models.Model):
 
 class Payment(models.Model):
     id = models.AutoField(primary_key=True)
-    etudiant_id = models.ForeignKey(Etudiant, on_delete=models.CASCADE)
-    cours_id = models.ForeignKey(Cours, on_delete=models.CASCADE)
+    etudiant= models.ForeignKey(Etudiant, on_delete=models.CASCADE)
+    cours = models.ForeignKey(Cours, on_delete=models.CASCADE)
     montant = models.DecimalField(max_digits=10, decimal_places=2)
     date_paiement = models.DateTimeField(auto_now_add=True)
     

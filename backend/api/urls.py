@@ -12,5 +12,7 @@ urlpatterns = [
     # Other URL patterns
     path('register/a', views.register_etudiant, name='register_etudiant'),
     path('getallEtud/a', views.get_all_etudiants, name='get_all_etudiants'),
-     path('getallCourses/a', views.get_all_cours, name='get_all_cours'),
+    path('getallCourses/a', views.get_all_cours, name='get_all_cours'),
+     path('getcourse/<int:id_cours>', views.get_course, name='get_course'),
+    path('paie/a', views.make_payment, name='make_payment'),
 ]
